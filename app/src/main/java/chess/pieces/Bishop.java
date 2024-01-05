@@ -1,5 +1,9 @@
 package chess.pieces;
 
-public class Bishop implements Piece {
+public class Bishop extends Piece {
+
+    public Bishop(char color) {
+        super(color, 'b');
+    }
     
 }

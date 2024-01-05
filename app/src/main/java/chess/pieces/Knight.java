@@ -1,5 +1,10 @@
 package chess.pieces;
 
-public class Knight implements Piece {
+
+public class Knight extends Piece {
+
+    public Knight(char color) {
+        super(color, 'n');
+    }
     
 }

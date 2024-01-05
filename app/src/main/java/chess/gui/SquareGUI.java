@@ -1,4 +1,4 @@
-package chess;
+package chess.gui;
 
 import javax.swing.JTextField;
 
