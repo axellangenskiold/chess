@@ -1,11 +1,13 @@
 package chess.pieces;
 
 import chess.Color;
+import chess.Pos;
 
 public abstract class Piece {
-
-    Color color;
-    char type;
+    
+    private Color color;
+    private char type;
+    private Move[] possibleMoves;
 
     public Piece(char color, char type) {
         this.type = type;
@@ -24,9 +26,12 @@ public abstract class Piece {
         return color.isEmpty();
     }
 
+    public  boolean isMovable() {
+        return possibleMoves.length != 0;
+    }
+
     @Override
     public String toString() {
         return Character.toString(type);
     }
-
 }
