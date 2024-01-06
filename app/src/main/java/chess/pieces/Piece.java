@@ -30,6 +30,21 @@ public abstract class Piece {
         return possibleMoves.length != 0;
     }
 
+    public void move(Pos from, Pos to) {
+        if (contains(possibleMoves, new Move(from, to))) {
+            return; //need to be fixed
+        }
+    }
+
+    public boolean contains(Move[] array, Move move) {
+        for (Move other : array) {
+            if (other.equals(move)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return Character.toString(type);
