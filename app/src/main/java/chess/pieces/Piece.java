@@ -11,12 +11,14 @@ public abstract class Piece {
     protected Color color;
     private char type;
     protected Pos current;
-    protected ArrayList<Move> possibleMoves;
+    protected List<Move> possibleMoves;
 
     public Piece(char color, char type, Pos pos) {
         this.type = type;
         this.color = new Color('w');
         current = pos;
+        possibleMoves = new ArrayList<>();
+        addPossibleMoves();
     }
 
     abstract void addPossibleMoves();
@@ -41,10 +43,21 @@ public abstract class Piece {
         return possibleMoves;
     }
 
-    public void move(Pos from, Pos to) {
-        if (possibleMoves.contains(new Move(from, to))) {
-            return; //need to be fixed
+    public boolean isPossibleMove(Move move) {
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            if (possibleMoves.get(i).equals(move)) {
+                return true;
+            }
         }
+        return false;
+    } 
+
+    public Pos getPos() {
+        return current;
+    }
+
+    public void setPos(Pos pos) {
+        current = pos;
     }
 
     @Override

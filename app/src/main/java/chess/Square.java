@@ -18,6 +18,7 @@ public class Square {
 
     public void setPiece(Piece other) {
         piece = other;
+        piece.setPos(pos);
     }
 
     public Piece getPiece() {
@@ -27,8 +28,6 @@ public class Square {
     public void setToEmpty() {
         piece = new EmptyPiece(pos);
     }
-
-    
 
     @Override
     public String toString() {

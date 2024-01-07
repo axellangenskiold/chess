@@ -8,18 +8,16 @@ public class Pawn extends Piece {
 
     public Pawn(char color, Pos pos) {
         super(color, 'p', pos);
-
-        possibleMoves = new ArrayList<>();
     }
 
     @Override
     void addPossibleMoves() {
         if (color.equals('w')) {
-            possibleMoves.add(current.getMove(0, -1));
-            possibleMoves.add(current.getMove(0, -2));
+            possibleMoves.add(current.getMove(-1, 0));
+            possibleMoves.add(current.getMove(-2, 0));
         } else {
-            possibleMoves.add(current.getMove(0, 1));
-            possibleMoves.add(current.getMove(0, 2));
+            possibleMoves.add(current.getMove(1,0));
+            possibleMoves.add(current.getMove(2,0));
         }
     }
     

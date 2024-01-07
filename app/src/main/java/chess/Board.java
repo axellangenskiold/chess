@@ -41,25 +41,24 @@ public class Board {
                 board[i][j] = new Square(new Pos(ROW_LETTERS[i], COLUMN_NUMBERS[j]));
             }
         }
-
         for (int i = 0; i < SIZE; i++) {
-            board[1][i].setPiece(new Pawn('b', new Pos(1, i)));
-        }
-        for (int i = 0; i < SIZE; i++) {
-            board[6][i].setPiece(new Pawn('w', new Pos(6, i)));
-        }
-        for (int i = 0; i < SIZE; i++) {
+            // set up back row for each player
             board[0][i].setPiece(BLACK_START_POS[i]);
             board[7][i].setPiece(WHITE_START_POS[i]);
+
+            // set up pawns for each player
+            board[6][i].setPiece(new Pawn('w', new Pos(6, i)));
+            board[1][i].setPiece(new Pawn('b', new Pos(1, i)));
         }
     }
 
     public void move(Pos from, Pos to) {
-        Piece toMove = getPiece(from);
+        Piece pieceToMove = getPiece(from);
+        Move potentialMove = new Move(from, to);
 
-        if (!toMove.isEmptySquare()) {
-            setPiece(toMove, to);
-            remove(from);
+        if (!pieceToMove.isEmptySquare() && pieceToMove.isPossibleMove(potentialMove)) {
+            
+            setPiece(pieceToMove, to);
         }
     }
 
@@ -68,29 +67,30 @@ public class Board {
     }
 
     public void setPiece(Piece piece, Pos pos) {
+        Pos oldPos = piece.getPos();
         get(pos).setPiece(piece);
-    }
-
-    public void remove(Pos pos) {
-        get(pos).setToEmpty();
+        get(oldPos).setToEmpty();
     }
 
     public Square get(Pos pos) {
+        System.out.println(pos.getRow() + " " + pos.getCol());
         return board[pos.getRow()][pos.getCol()];
     }
 
     public void printBoard() {
+        System.out.println("\n\n");
         for (int i = 0; i < SIZE; i++) {
-            System.out.print(ROW_LETTERS[i] + " ");
+            System.out.print(ROW_LETTERS[i] + "  ");
             for (Square square : board[i]) {
                 System.out.print(" " + square.toString() + " ");
             }
             System.out.println();
         }
 
-        System.out.print("  ");
-        for (char c : ROW_LETTERS) {
-            System.out.print(" " + c + " ");
+        System.out.println();
+        System.out.print("   ");
+        for (int i : COLUMN_NUMBERS) {
+            System.out.print(" " + i + " ");
         }
     }
 }
