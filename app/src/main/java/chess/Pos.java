@@ -23,8 +23,7 @@ public class Pos {
         return (int) pos[1];
     }
 
-    public static Move getMove(Pos pos, int x, int y) {
-        
-        return new Move(pos, new Pos(pos.getRow() - x, pos.getCol() - y));
+    public Move getMove(int x, int y) {
+        return new Move(this, new Pos(getRow() - x, getCol() - y));
     }
 }

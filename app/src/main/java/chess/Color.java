@@ -28,4 +28,8 @@ public class Color {
         }
         return false;
     }
+
+    public boolean equals(Color other) {
+        return this.color == other.color;
+    }
 }

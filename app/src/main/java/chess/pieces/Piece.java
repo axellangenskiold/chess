@@ -1,18 +1,25 @@
 package chess.pieces;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chess.Color;
 import chess.Pos;
 
 public abstract class Piece {
     
-    private Color color;
+    protected Color color;
     private char type;
-    private Move[] possibleMoves;
+    protected Pos current;
+    protected ArrayList<Move> possibleMoves;
 
-    public Piece(char color, char type) {
+    public Piece(char color, char type, Pos pos) {
         this.type = type;
         this.color = new Color('w');
+        current = pos;
     }
+
+    abstract void addPossibleMoves();
 
     public boolean isWhite() {
         return color.isWhite();
@@ -27,22 +34,17 @@ public abstract class Piece {
     }
 
     public  boolean isMovable() {
-        return possibleMoves.length != 0;
+        return possibleMoves.size() != 0;
+    }
+
+    public List<Move> getPossibleMoves() {
+        return possibleMoves;
     }
 
     public void move(Pos from, Pos to) {
-        if (contains(possibleMoves, new Move(from, to))) {
+        if (possibleMoves.contains(new Move(from, to))) {
             return; //need to be fixed
         }
-    }
-
-    public boolean contains(Move[] array, Move move) {
-        for (Move other : array) {
-            if (other.equals(move)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

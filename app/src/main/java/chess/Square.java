@@ -8,7 +8,7 @@ public class Square {
     private Pos pos;
     
     public Square(Pos pos) {
-        this(pos, new EmptyPiece());
+        this(pos, new EmptyPiece(pos));
     }
 
     public Square(Pos pos, Piece piece) {
@@ -25,7 +25,7 @@ public class Square {
     }
 
     public void setToEmpty() {
-        piece = new EmptyPiece();
+        piece = new EmptyPiece(pos);
     }
 
     

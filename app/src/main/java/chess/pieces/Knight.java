@@ -1,10 +1,29 @@
 package chess.pieces;
 
+import java.util.ArrayList;
+
+import chess.Pos;
 
 public class Knight extends Piece {
 
-    public Knight(char color) {
-        super(color, 'n');
+    public Knight(char color, Pos pos) {
+        super(color, 'n', pos);
+        possibleMoves = new ArrayList<>();
+    }
+
+    @Override
+    void addPossibleMoves() {
+        //moves "right"
+        possibleMoves.add(current.getMove(2, 1));
+        possibleMoves.add(current.getMove(2, -1));
+        possibleMoves.add(current.getMove(1, 2));
+        possibleMoves.add(current.getMove(1, -2));
+
+        //moves "left"
+        possibleMoves.add(current.getMove(-2, 1));
+        possibleMoves.add(current.getMove(-2, -1));
+        possibleMoves.add(current.getMove(-1, 2));
+        possibleMoves.add(current.getMove(-1, -2));
     }
     
 }

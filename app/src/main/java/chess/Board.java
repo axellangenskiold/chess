@@ -9,24 +9,24 @@ public class Board {
     public static int[] COLUMN_NUMBERS = {1, 2, 3, 4, 5, 6, 7, 8};
 
     public static Piece[] WHITE_START_POS = {
-        new Rook('w'), 
-        new Knight('w'), 
-        new Bishop('w'), 
-        new King('w'), 
-        new Queen('w'), 
-        new Bishop('w'), 
-        new Knight('w'), 
-        new Rook('w')};
+        new Rook('w', new Pos(0,0)), 
+        new Knight('w', new Pos(0,1)), 
+        new Bishop('w', new Pos(0,2)), 
+        new King('w', new Pos(0,3)), 
+        new Queen('w', new Pos(0,4)), 
+        new Bishop('w', new Pos(0,5)), 
+        new Knight('w', new Pos(0,6)), 
+        new Rook('w', new Pos(0,7))};
 
     public static Piece[] BLACK_START_POS = {
-        new Rook('b'), 
-        new Knight('b'), 
-        new Bishop('b'), 
-        new King('b'), 
-        new Queen('b'), 
-        new Bishop('b'), 
-        new Knight('b'), 
-        new Rook('b')};
+        new Rook('b', new Pos(0,0)), 
+        new Knight('b', new Pos(0,1)), 
+        new Bishop('b', new Pos(0,2)), 
+        new King('b', new Pos(0,3)), 
+        new Queen('b', new Pos(0,4)), 
+        new Bishop('b', new Pos(0,5)), 
+        new Knight('b', new Pos(0,6)), 
+        new Rook('b', new Pos(0,7))};
     
     Square[][] board;
 
@@ -42,11 +42,11 @@ public class Board {
             }
         }
 
-        for (Square square : board[1]) {
-            square.setPiece(new Pawn('b'));
+        for (int i = 0; i < SIZE; i++) {
+            board[1][i].setPiece(new Pawn('b', new Pos(1, i)));
         }
-        for (Square square : board[6]) {
-            square.setPiece(new Pawn('w'));
+        for (int i = 0; i < SIZE; i++) {
+            board[6][i].setPiece(new Pawn('w', new Pos(6, i)));
         }
         for (int i = 0; i < SIZE; i++) {
             board[0][i].setPiece(BLACK_START_POS[i]);
