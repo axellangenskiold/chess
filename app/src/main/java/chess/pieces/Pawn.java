@@ -15,9 +15,14 @@ public class Pawn extends Piece {
         if (color.equals('w')) {
             possibleMoves.add(current.getMove(-1, 0));
             possibleMoves.add(current.getMove(-2, 0));
+            possibleMoves.add(current.getMove(-1, -1));
+            possibleMoves.add(current.getMove(-1, 1));
+
         } else {
             possibleMoves.add(current.getMove(1,0));
             possibleMoves.add(current.getMove(2,0));
+            possibleMoves.add(current.getMove(1,-1));
+            possibleMoves.add(current.getMove(1,1));
         }
     }
     

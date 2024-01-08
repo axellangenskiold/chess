@@ -35,6 +35,10 @@ public abstract class Piece {
         return color.isEmpty();
     }
 
+    public boolean isSameColor(Piece other) {
+        return color.equals(other.color);
+    }
+
     public  boolean isMovable() {
         return possibleMoves.size() != 0;
     }

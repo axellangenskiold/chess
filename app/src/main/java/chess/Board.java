@@ -56,7 +56,9 @@ public class Board {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
-        if (!pieceToMove.isEmptySquare() && pieceToMove.isPossibleMove(potentialMove)) {
+        if (!pieceToMove.isEmptySquare() && 
+            pieceToMove.isPossibleMove(potentialMove) &&
+            !getPiece(to).isSameColor(pieceToMove)) {
             
             setPiece(pieceToMove, to);
         }
