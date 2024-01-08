@@ -14,16 +14,20 @@ public class Knight extends Piece {
     @Override
     void addPossibleMoves() {
         //moves "right"
-        possibleMoves.add(current.getMove(2, 1));
-        possibleMoves.add(current.getMove(2, -1));
         possibleMoves.add(current.getMove(1, 2));
-        possibleMoves.add(current.getMove(1, -2));
+        possibleMoves.add(current.getMove(-1, 2));
+
+        //moves "up"
+        possibleMoves.add(current.getMove(2, -1));
+        possibleMoves.add(current.getMove(2, 1));
 
         //moves "left"
-        possibleMoves.add(current.getMove(-2, 1));
-        possibleMoves.add(current.getMove(-2, -1));
-        possibleMoves.add(current.getMove(-1, 2));
         possibleMoves.add(current.getMove(-1, -2));
+        possibleMoves.add(current.getMove(1, -2));
+
+        //moves "down"
+        possibleMoves.add(current.getMove(-2, -1));
+        possibleMoves.add(current.getMove(-2, 1));
     }
     
 }
