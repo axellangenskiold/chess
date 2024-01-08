@@ -21,7 +21,7 @@ public class App {
         controller.move(new Pos(0, 4), new Pos(4,0)); //move black queen
         controller.move(new Pos(0, 2), new Pos(4, 6)); //move bishop a3
 
-        controller.move(new Pos(0, 1), new Pos(2, 0)); //move knight 
+        controller.move(new Pos(0, 1), new Pos(2, 2)); //move knight 
 
         controller.printBoard();
     }
