@@ -11,7 +11,8 @@ public class App {
     }
 
     public static void main(String[] args) {
-        Controller controller = new Controller(new Board(), new GUI());
+        Controller controller = new Controller(new Board());
+        GUI gui = new GUI(controller);
         controller.printBoard();
         controller.move(new Pos(1,0), new Pos(3,0)); //move pawn b1
         controller.move(new Pos(1, 7), new Pos(2, 7)); //move pawn b8

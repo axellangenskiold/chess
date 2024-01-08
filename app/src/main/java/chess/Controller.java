@@ -7,7 +7,7 @@ public class Controller {
     Board board;
     GUI gui;
     
-    public Controller(Board model, GUI gui) {
+    public Controller(Board model) {
         this.board = new Board();
     }
 
