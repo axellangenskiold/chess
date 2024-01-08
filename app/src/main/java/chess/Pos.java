@@ -14,7 +14,7 @@ public class Pos {
     }
 
     public Pos(int row, int col) {
-        this((char) (row + 97), col);
+        this((char) (row + 97), col+1);
     }
 
     public int getRow() {
@@ -22,11 +22,11 @@ public class Pos {
     }
 
     public int getCol() {
-        return (int) pos[1]-1;
+        return (int) pos[1] -1;
     }
 
-    public Move getMove(int x, int y) {
-        return new Move(this, new Pos(getRow() + x, getCol() + y));
+    public Move getMove(int row, int col) {
+        return new Move(this, new Pos(getRow() + row, getCol() + col));
     }
 
     public boolean isOutOfBounds() {

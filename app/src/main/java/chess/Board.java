@@ -73,7 +73,6 @@ public class Board {
     }
 
     public Square get(Pos pos) {
-        System.out.println(pos.getRow() + " " + pos.getCol());
         return board[pos.getRow()][pos.getCol()];
     }
 

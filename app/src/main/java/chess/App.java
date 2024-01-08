@@ -13,7 +13,7 @@ public class App {
     public static void main(String[] args) {
         Controller controller = new Controller(new Board(), new GUI());
         controller.printBoard();
-        //controller.move(new Pos(1,1), new Pos(2,1));
+        controller.move(new Pos(1,0), new Pos(2,0));
         controller.move(new Pos(1, 7), new Pos(2, 7));
         controller.printBoard();
     }
