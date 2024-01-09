@@ -1,9 +1,6 @@
 package chess.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import chess.Controller;
@@ -30,6 +27,7 @@ public class GUI extends JFrame {
     }
 
     public void readFromBoardStart() throws InterruptedException {
+        //makes it look cool in the beginning
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < SIZE; col++) {
                 getSquare(row, col).setPiece(controller.getPiece(row, col));;

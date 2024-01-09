@@ -28,18 +28,13 @@ public class SquareGUI extends JButton {
         this.col = col;
         this.controller = controller;
 
-        // square.addActionListener(new ActionListener() { 
-        //     public void actionPerformed(ActionEvent e) { 
-        //         System.out.println(square.getRow() + " " + square.getCol());
-        //         square.setPiece(controller.getPiece(square.getRow(), square.getCol())); //sets the gui square to the piece that is currently standing on the same place in the board
-        //     } 
-        // });
-
         addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                setPiece(controller.getPiece(getRow(), getCol())); //sets the gui square to the piece that is currently standing on the same place in the board
+                setPiece(controller.getPiece(getRow(), getCol()));
             } 
         });
+
+        //addMouseListener(new HoverMouseListener(image));
 
         setFocusable(false);
         setOpaque(true);
@@ -69,7 +64,7 @@ public class SquareGUI extends JButton {
         } else if (piece.isWhite()) {
             setIcon(new ImageIcon(START_OF_PATH + "w" + piece.toString() + ".png"));
         } else {
-            setIcon(null);
+            setIcon(new ImageIcon(START_OF_PATH + "Empty" + ".png"));
         }
     }
 }

@@ -1,15 +1,8 @@
 package chess.gui;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
-
-import chess.Board;
-
 import chess.Controller;
-import chess.Pos;
 
 public class BoardGUI extends JPanel {
 
@@ -25,7 +18,6 @@ public class BoardGUI extends JPanel {
                 add(new SquareGUI(row, col, (row + col) % 2, controller));
             }
         }
-
     }
 
     public SquareGUI get(int row, int col) {
