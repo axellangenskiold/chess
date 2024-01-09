@@ -29,12 +29,22 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    public void readFromBoard() {
-        for (int row = SIZE; row < SIZE; row++) {
+    public void readFromBoardStart() throws InterruptedException {
+        for (int row = 0; row < 2; row++) {
             for (int col = 0; col < SIZE; col++) {
-                getSquare(row,col).setPiece(controller.getPiece(row, col));
+                getSquare(row, col).setPiece(controller.getPiece(row, col));;
+                Thread.sleep(50);
             }
         }
+
+        for (int row = 6; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                getSquare(row, col).setPiece(controller.getPiece(row, col));;
+                Thread.sleep(50);
+            }
+        }
+
+
     }
 
     public SquareGUI getSquare(int row, int col) {

@@ -15,7 +15,7 @@ public abstract class Piece {
 
     public Piece(char color, char type, Pos pos) {
         this.type = type;
-        this.color = new Color('w');
+        this.color = new Color(color);
         current = pos;
         possibleMoves = new ArrayList<>();
         addPossibleMoves();

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import chess.Controller;
 import chess.pieces.Piece;
 
 public class SquareGUI extends JButton {
@@ -20,12 +21,29 @@ public class SquareGUI extends JButton {
     ImageIcon image;
     private int row;
     private int col;
+    private Controller controller;
 
-    public SquareGUI(int row, int col, int color) {
+    public SquareGUI(int row, int col, int color, Controller controller) {
         this.row = row;
         this.col = col;
+        this.controller = controller;
 
-        //setOpaque(false);
+        // square.addActionListener(new ActionListener() { 
+        //     public void actionPerformed(ActionEvent e) { 
+        //         System.out.println(square.getRow() + " " + square.getCol());
+        //         square.setPiece(controller.getPiece(square.getRow(), square.getCol())); //sets the gui square to the piece that is currently standing on the same place in the board
+        //     } 
+        // });
+
+        addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) {
+                setPiece(controller.getPiece(getRow(), getCol())); //sets the gui square to the piece that is currently standing on the same place in the board
+            } 
+        });
+
+        setFocusable(false);
+        setOpaque(true);
+        setBorderPainted(false);
         setBackground(intToColor(color));
         setPreferredSize(new Dimension(DIMENSIONS, DIMENSIONS));
     }
