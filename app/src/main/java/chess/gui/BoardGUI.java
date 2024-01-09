@@ -6,11 +6,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import chess.Board;
+
+import chess.Controller;
+import chess.Pos;
+
 public class BoardGUI extends JPanel {
 
     private static int SIZE = 8;
+    private Board board;
 
-    public BoardGUI() {
+    public BoardGUI(Controller controller) {
         super(new GridLayout(8,8));
 
         for (int row = 0; row < SIZE; row++) {

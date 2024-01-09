@@ -19,7 +19,7 @@ public class GUI extends JFrame {
     public GUI(Controller controller) {
         this.controller = controller;
 
-        board = new BoardGUI();
+        board = new BoardGUI(controller);
 
         add(BorderLayout.CENTER, board);
 

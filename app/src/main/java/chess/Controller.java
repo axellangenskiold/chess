@@ -23,4 +23,8 @@ public class Controller {
     public void printBoard() {
         board.printBoard();
     }
+
+    public Board getBoard() {
+        return board;
+    }
 }
