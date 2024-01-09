@@ -20,7 +20,6 @@ public class BoardGUI extends JPanel {
                 square.addActionListener(new ActionListener() { 
                     public void actionPerformed(ActionEvent e) { 
                         System.out.println(square.getRow() + " " + square.getCol());
-                        square.setPiece("test");
                     } 
                 });
                 square.setFocusable(false);
@@ -31,5 +30,9 @@ public class BoardGUI extends JPanel {
             }
         }
 
+    }
+
+    public SquareGUI get(int row, int col) {
+        return (SquareGUI) getComponent(row * 7 + col);
     }
 }

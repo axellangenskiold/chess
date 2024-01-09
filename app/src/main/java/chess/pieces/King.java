@@ -5,7 +5,7 @@ import chess.Pos;
 public class King extends Piece {
 
     public King(char color, Pos pos) {
-        super(color, 'K', pos);
+        super(color, 'k', pos);
     }
 
     @Override

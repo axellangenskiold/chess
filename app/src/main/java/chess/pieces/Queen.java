@@ -7,7 +7,7 @@ public class Queen extends Piece {
     private static int SIZE = 8;
 
     public Queen(char color, Pos pos) {
-        super(color, 'Q', pos);
+        super(color, 'q', pos);
     }
 
     @Override

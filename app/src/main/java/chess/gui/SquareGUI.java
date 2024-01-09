@@ -8,10 +8,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import chess.pieces.Piece;
+
 public class SquareGUI extends JButton {
 
     private static Color WHITE_SQUARE_BACKGROUND = Color.WHITE;
     private static Color BLACK_SQUARE_BACKGROUND = Color.GRAY;
+    private static int DIMENSIONS = 100;
+    private static String START_OF_PATH = "/Users/axellangenskiold/Documents/personal-projects/chess/app/src/main/resources/";
 
     ImageIcon image;
     private int row;
@@ -23,7 +27,7 @@ public class SquareGUI extends JButton {
 
         //setOpaque(false);
         setBackground(intToColor(color));
-        setPreferredSize(new Dimension(50, 50));
+        setPreferredSize(new Dimension(DIMENSIONS, DIMENSIONS));
     }
 
     public int getRow() {
@@ -41,7 +45,13 @@ public class SquareGUI extends JButton {
         return BLACK_SQUARE_BACKGROUND;
     }
 
-    public void setPiece(String s) {
-        setIcon(new ImageIcon("/Users/axellangenskiold/Documents/personal-projects/chess/app/src/main/resources/Bishop.png"));
+    public void setPiece(Piece piece) {
+        if (piece.isBlack()) {
+            setIcon(new ImageIcon(START_OF_PATH + "b" + piece.toString() + ".png"));
+        } else if (piece.isWhite()) {
+            setIcon(new ImageIcon(START_OF_PATH + "w" + piece.toString() + ".png"));
+        } else {
+            setIcon(null);
+        }
     }
 }
