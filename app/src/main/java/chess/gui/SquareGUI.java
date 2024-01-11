@@ -2,6 +2,7 @@ package chess.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,8 +32,17 @@ public class SquareGUI extends JButton {
         addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
                 setPiece(controller.getPiece(getRow(), getCol()));
+
+                Image newImage = image.getImage().getScaledInstance(image.getIconWidth() + 1000, image.getIconHeight() + 1000, Image.SCALE_REPLICATE);
+                Image newImg = image.getImage().getScaledInstance(row, col, color);
+                image = new ImageIcon(newImage);
+                
             } 
         });
+
+        
+
+        addMouseListener(null);
 
         //addMouseListener(new HoverMouseListener(image));
 
@@ -60,11 +70,13 @@ public class SquareGUI extends JButton {
 
     public void setPiece(Piece piece) {
         if (piece.isBlack()) {
-            setIcon(new ImageIcon(START_OF_PATH + "b" + piece.toString() + ".png"));
+            image = new ImageIcon(START_OF_PATH + "b" + piece.toString() + ".png");
         } else if (piece.isWhite()) {
-            setIcon(new ImageIcon(START_OF_PATH + "w" + piece.toString() + ".png"));
+            image = new ImageIcon(START_OF_PATH + "w" + piece.toString() + ".png");
         } else {
-            setIcon(new ImageIcon(START_OF_PATH + "Empty" + ".png"));
+            image = new ImageIcon(START_OF_PATH + "Empty" + ".png");
         }
+
+        setIcon(image);
     }
 }

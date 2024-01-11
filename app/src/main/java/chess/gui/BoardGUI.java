@@ -1,7 +1,12 @@
 package chess.gui;
 
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+
 import javax.swing.JPanel;
+
+import org.w3c.dom.events.MouseEvent;
+
 import chess.Controller;
 
 public class BoardGUI extends JPanel {
@@ -18,6 +23,12 @@ public class BoardGUI extends JPanel {
                 add(new SquareGUI(row, col, (row + col) % 2, controller));
             }
         }
+
+        addMouseListener(new MouseAdapter() { 
+            public void mousePressed(MouseEvent me) {
+                return;
+            }
+        });
     }
 
     public SquareGUI get(int row, int col) {
