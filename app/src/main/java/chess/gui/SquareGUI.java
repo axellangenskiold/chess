@@ -16,6 +16,7 @@ public class SquareGUI extends JButton {
 
     private static Color WHITE_SQUARE_BACKGROUND = Color.WHITE;
     private static Color BLACK_SQUARE_BACKGROUND = Color.GRAY;
+    private static Color MARKED_BACKGROUND = new java.awt.Color(190, 190, 230);
     private static int DIMENSIONS = 100;
     private static String START_OF_PATH = "/Users/axellangenskiold/Documents/personal-projects/chess/app/src/main/resources/";
 
@@ -23,33 +24,34 @@ public class SquareGUI extends JButton {
     private int row;
     private int col;
     private Controller controller;
+    private boolean isMarked;
+    private int originalColor;
 
     public SquareGUI(int row, int col, int color, Controller controller) {
         this.row = row;
         this.col = col;
         this.controller = controller;
+        this.originalColor = color;
+        isMarked = false;
+        
 
         addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                setPiece(controller.getPiece(getRow(), getCol()));
 
-                Image newImage = image.getImage().getScaledInstance(image.getIconWidth() + 1000, image.getIconHeight() + 1000, Image.SCALE_REPLICATE);
-                Image newImg = image.getImage().getScaledInstance(row, col, color);
-                image = new ImageIcon(newImage);
+                // Image newImage = image.getImage().getScaledInstance(image.getIconWidth() + 1000, image.getIconHeight() + 1000, Image.SCALE_REPLICATE);
+                // Image newImg = image.getImage().getScaledInstance(row, col, color);
+                // image = new ImageIcon(newImage);
+
+                isMarked = !isMarked;
+                changeColor();
                 
             } 
         });
 
-        
-
-        addMouseListener(null);
-
-        //addMouseListener(new HoverMouseListener(image));
-
         setFocusable(false);
         setOpaque(true);
         setBorderPainted(false);
-        setBackground(intToColor(color));
+        setBackground(intToColor(originalColor));
         setPreferredSize(new Dimension(DIMENSIONS, DIMENSIONS));
     }
 
@@ -78,5 +80,13 @@ public class SquareGUI extends JButton {
         }
 
         setIcon(image);
+    }
+
+    private void changeColor() {
+        if (isMarked) {
+            setBackground(MARKED_BACKGROUND);
+        } else {
+            setBackground(intToColor(originalColor));
+        }
     }
 }
