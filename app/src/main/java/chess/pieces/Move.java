@@ -34,6 +34,12 @@ public class Move {
         return rowDiff == colDiff;
     }
 
+    //checks if a move is more than one step in either direction
+    public boolean isDoubleOrMore() {
+        return (Math.abs(to.getRow() - from.getRow()) > 1) || 
+        (Math.abs(to.getCol() - from.getCol()) > 1);
+    }
+
     public String toString() {
         return from.toString() + " to " + to.toString();
     }

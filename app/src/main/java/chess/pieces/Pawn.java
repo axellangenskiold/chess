@@ -25,4 +25,8 @@ public class Pawn extends Piece {
             possibleMoves.add(current.getMove(1,1));
         }
     }
+
+    public boolean isOnStartingRow() {
+        return (color.isWhite() && current.getRow() == 6) || (color.isBlack() && current.getRow() == 1);
+    }
 }

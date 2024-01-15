@@ -62,8 +62,7 @@ public class Board extends Observable {
             pieceToMove.isPossibleMove(potentialMove) &&
             !get(to).getPiece().isSameColor(pieceToMove) &&
             (pieceToMove.canJump() || isClearPath(from, to)) &&
-            specialCaptureCase(pieceToMove, potentialMove)
-            ) {
+            specialCaptureCase(pieceToMove, potentialMove)) {
             
             setPiece(pieceToMove, to);
             setChanged();
@@ -105,12 +104,17 @@ public class Board extends Observable {
     }
 
     private boolean specialCaptureCase(Piece piece, Move move) {
+        //pawn can only capture diagonal and walk forward on empty square
         if (piece.type() == Piece.PAWN) {
-            if (move.isDiagonal() && !piece.isOppositeColor(getPiece(move.getTo()))) {
-                return false;
-            } 
+            return !(move.isDiagonal() && !piece.isOppositeColor(getPiece(move.getTo()))) || 
+                    (!move.isDiagonal() && piece.isOppositeColor(getPiece(move.getTo())));
+                    //(move.isDoubleOrMore() && ((Pawn) piece).isOnStartingRow());
         }
-        return true;
+        return !kingInCheck(piece, move);
+    }
+
+    private boolean kingInCheck(Piece piece, Move move) {
+        return false;
     }
 
 
