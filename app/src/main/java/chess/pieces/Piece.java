@@ -49,6 +49,7 @@ public abstract class Piece {
 
     public boolean isPossibleMove(Move move) {
         for (int i = 0; i < possibleMoves.size(); i++) {
+            System.out.println("From isPossibleMove() in Piece: " + possibleMoves.get(i).equals(move));
             if (possibleMoves.get(i).equals(move)) {
                 return true;
             }
@@ -62,6 +63,7 @@ public abstract class Piece {
 
     public void setPos(Pos pos) {
         current = pos;
+        addPossibleMoves();
     }
 
     @Override
