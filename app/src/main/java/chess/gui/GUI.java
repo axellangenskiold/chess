@@ -60,7 +60,7 @@ public class GUI extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(arg);
+        System.out.println(".");
         if (arg.equals("executed")) {
             updateGUI();
         }

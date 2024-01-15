@@ -2,6 +2,8 @@ package chess;
 
 public class Color {
 
+    public static char WHITE = 'w';
+    public static char BLACK = 'b';
     char color;
     
     public Color(char c) {

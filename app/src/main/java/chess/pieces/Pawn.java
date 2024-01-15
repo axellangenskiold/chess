@@ -2,6 +2,7 @@ package chess.pieces;
 
 import java.util.ArrayList;
 
+import chess.Color;
 import chess.Pos;
 
 public class Pawn extends Piece {
@@ -12,7 +13,7 @@ public class Pawn extends Piece {
 
     @Override
     void addPossibleMoves() {
-        if (color.equals('w')) {
+        if (color.isWhite()) {
             possibleMoves.add(current.getMove(-1, 0));
             possibleMoves.add(current.getMove(-2, 0));
             possibleMoves.add(current.getMove(-1, -1));

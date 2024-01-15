@@ -17,11 +17,11 @@ public class Square {
     }
 
     public void setPiece(Piece other) {
-        System.out.println(other.getPos().toString());
+        System.out.println("Pos before: " + other.getPos().toString());
         piece = other;
         other.setPos(pos);
         piece.setPos(pos);
-        System.out.println(other.getPos().toString());
+        System.out.println("Pos after: " + other.getPos().toString());
     }
 
     public Piece getPiece() {
