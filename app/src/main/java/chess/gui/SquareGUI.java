@@ -32,27 +32,10 @@ public class SquareGUI extends JButton {
         this.controller = controller;
         this.originalColor = color;
         isMarked = false;
-        
-
-        addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) {
-
-                // Image newImage = image.getImage().getScaledInstance(image.getIconWidth() + 1000, image.getIconHeight() + 1000, Image.SCALE_REPLICATE);
-                // Image newImg = image.getImage().getScaledInstance(row, col, color);
-                // image = new ImageIcon(newImage);
-
-                // isMarked = !isMarked;
-                // changeColor();
-                
-            } 
-        });
 
         addMouseListener(new MouseListener() {
-
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                //System.out.println("executed");
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {

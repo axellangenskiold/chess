@@ -11,12 +11,14 @@ public class Pawn extends Piece {
     @Override
     void addPossibleMoves() {
         if (color.isWhite()) {
+            //for white
             possibleMoves.add(current.getMove(-1, 0));
             possibleMoves.add(current.getMove(-2, 0));
             possibleMoves.add(current.getMove(-1, -1));
             possibleMoves.add(current.getMove(-1, 1));
 
         } else {
+            //for black
             possibleMoves.add(current.getMove(1,0));
             possibleMoves.add(current.getMove(2,0));
             possibleMoves.add(current.getMove(1,-1));

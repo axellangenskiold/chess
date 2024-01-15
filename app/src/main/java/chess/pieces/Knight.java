@@ -1,7 +1,5 @@
 package chess.pieces;
 
-import java.util.ArrayList;
-
 import chess.Pos;
 
 public class Knight extends Piece {
