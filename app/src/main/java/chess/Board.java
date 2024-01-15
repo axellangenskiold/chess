@@ -9,6 +9,7 @@ public class Board extends Observable {
     public static char[] ROW_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     public static int[] COLUMN_NUMBERS = {1, 2, 3, 4, 5, 6, 7, 8};
 
+    //this is ugly
     public static Piece[] WHITE_START_POS = {
         new Rook('w', new Pos(0,0)), 
         new Knight('w', new Pos(0,1)), 
@@ -57,11 +58,12 @@ public class Board extends Observable {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
-        System.out.println(!pieceToMove.isEmptySquare());
-        System.out.println(pieceToMove.isPossibleMove(potentialMove));
-
         if (!pieceToMove.isEmptySquare() && 
-            pieceToMove.isPossibleMove(potentialMove)) {
+            pieceToMove.isPossibleMove(potentialMove) &&
+            !get(to).getPiece().isSameColor(pieceToMove) &&
+            (pieceToMove.canJump() || isClearPath(from, to)) &&
+            specialCaptureCase(pieceToMove, potentialMove)
+            ) {
             
             setPiece(pieceToMove, to);
             setChanged();
@@ -83,6 +85,36 @@ public class Board extends Observable {
         return board[pos.getRow()][pos.getCol()];
     }
 
+    private boolean isClearPath(Pos from, Pos to) {
+        int rowStep = Integer.compare(to.getRow(), from.getRow());
+        int colStep = Integer.compare(to.getCol(), from.getCol());
+    
+        int currentRow = from.getRow() + rowStep;
+        int currentCol = from.getCol() + colStep;
+    
+        while (currentRow != to.getRow() || currentCol != to.getCol()) {
+            if (!get(new Pos(currentRow, currentCol)).getPiece().isEmptySquare()) {
+                //if "is clear"
+                return false;
+            }
+    
+            currentRow += rowStep;
+            currentCol += colStep;
+        }
+        return true;
+    }
+
+    private boolean specialCaptureCase(Piece piece, Move move) {
+        if (piece.type() == Piece.PAWN) {
+            if (move.isDiagonal() && !piece.isOppositeColor(getPiece(move.getTo()))) {
+                return false;
+            } 
+        }
+        return true;
+    }
+
+
+    //print that makes it look nice in the terminal
     public void printBoard() {
         System.out.println("\n\n");
         for (int i = 0; i < SIZE; i++) {

@@ -8,6 +8,7 @@ public class Knight extends Piece {
 
     public Knight(char color, Pos pos) {
         super(color, 'n', pos);
+        canJump = true;
     }
 
     @Override

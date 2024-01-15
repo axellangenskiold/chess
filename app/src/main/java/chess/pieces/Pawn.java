@@ -1,8 +1,5 @@
 package chess.pieces;
 
-import java.util.ArrayList;
-
-import chess.Color;
 import chess.Pos;
 
 public class Pawn extends Piece {
@@ -26,5 +23,4 @@ public class Pawn extends Piece {
             possibleMoves.add(current.getMove(1,1));
         }
     }
-    
 }

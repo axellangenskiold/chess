@@ -7,11 +7,19 @@ import chess.Color;
 import chess.Pos;
 
 public abstract class Piece {
+
+    public static char PAWN = 'p';
+    public static char KING = 'k';
+    public static char QUEEN = 'q';
+    public static char KNIGHT = 'n';
+    public static char ROOK = 'r';
+    public static char BISHOP = 'b';
     
-    protected Color color;
     private char type;
+    protected Color color;
     protected Pos current;
     protected List<Move> possibleMoves;
+    protected boolean canJump = false;
 
     public Piece(char color, char type, Pos pos) {
         this.type = type;
@@ -31,6 +39,10 @@ public abstract class Piece {
         return color.isBlack();
     }
 
+    public char type() {
+        return type;
+    }
+
     public boolean isEmptySquare() {
         return color.isEmpty();
     }
@@ -39,8 +51,13 @@ public abstract class Piece {
         return color.equals(other.color);
     }
 
-    public  boolean isMovable() {
-        return possibleMoves.size() != 0;
+    //only gives opposite for white and black, always false for Empty
+    public boolean isOppositeColor(Piece other) {
+        return (isWhite() && other.isBlack()) || (isBlack() && other.isWhite());
+    }
+
+    public boolean canJump() {
+        return canJump;
     }
 
     public List<Move> getPossibleMoves() {
@@ -49,7 +66,6 @@ public abstract class Piece {
 
     public boolean isPossibleMove(Move move) {
         for (int i = 0; i < possibleMoves.size(); i++) {
-            System.out.println("From isPossibleMove() in Piece: " + possibleMoves.get(i).equals(move));
             if (possibleMoves.get(i).equals(move)) {
                 return true;
             }
