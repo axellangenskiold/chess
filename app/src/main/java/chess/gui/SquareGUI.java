@@ -2,13 +2,12 @@ package chess.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import chess.Controller;
 import chess.pieces.Piece;
 
@@ -17,7 +16,7 @@ public class SquareGUI extends JButton {
     private static Color WHITE_SQUARE_BACKGROUND = Color.WHITE;
     private static Color BLACK_SQUARE_BACKGROUND = Color.GRAY;
     private static Color MARKED_BACKGROUND = new java.awt.Color(190, 190, 230);
-    private static int DIMENSIONS = 100;
+    private static int DIMENSIONS = 80;
     private static String START_OF_PATH = "/Users/axellangenskiold/Documents/personal-projects/chess/app/src/main/resources/";
 
     ImageIcon image;
@@ -42,11 +41,43 @@ public class SquareGUI extends JButton {
                 // Image newImg = image.getImage().getScaledInstance(row, col, color);
                 // image = new ImageIcon(newImage);
 
-                isMarked = !isMarked;
-                changeColor();
+                // isMarked = !isMarked;
+                // changeColor();
                 
             } 
         });
+
+        addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                //System.out.println("executed");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ((BoardGUI) getParent()).setFromSquare(row, col);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ((BoardGUI) getParent()).execute();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                isMarked = !isMarked;
+                changeColor();
+                ((BoardGUI) getParent()).setToSquare(row, col);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                isMarked = !isMarked;
+                changeColor();
+            }
+        });
+
 
         setFocusable(false);
         setOpaque(true);

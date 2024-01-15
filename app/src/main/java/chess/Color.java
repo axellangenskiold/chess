@@ -9,24 +9,15 @@ public class Color {
     }
 
     public boolean isBlack() {
-        if (color == 'b') {
-            return true;
-        }
-        return false;
+        return (color == 'b');
     }
 
     public boolean isWhite() {
-        if (color == 'w') {
-            return true;
-        }
-        return false;
+        return (color == 'w');
     }
 
     public boolean isEmpty() {
-        if (color == 'e') {
-            return true;
-        }
-        return false;
+        return (color == 'e');
     }
 
     public boolean equals(Color other) {

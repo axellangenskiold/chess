@@ -8,8 +8,8 @@ public class Controller {
     Board board;
     GUI gui;
     
-    public Controller(Board model) {
-        this.board = new Board();
+    public Controller(Board board) {
+        this.board = board;
     }
 
     public void move(Pos from, Pos to) {

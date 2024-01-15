@@ -1,18 +1,16 @@
 package chess.gui;
 
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-
 import javax.swing.JPanel;
-
-import org.w3c.dom.events.MouseEvent;
-
 import chess.Controller;
+import chess.Pos;
 
 public class BoardGUI extends JPanel {
 
     private static int SIZE = 8;
     private Controller controller;
+    private Pos fromPos;
+    private Pos toPos;
 
     public BoardGUI(Controller controller) {
         super(new GridLayout(8,8));
@@ -23,15 +21,29 @@ public class BoardGUI extends JPanel {
                 add(new SquareGUI(row, col, (row + col) % 2, controller));
             }
         }
-
-        addMouseListener(new MouseAdapter() { 
-            public void mousePressed(MouseEvent me) {
-                return;
-            }
-        });
     }
 
     public SquareGUI get(int row, int col) {
         return (SquareGUI) getComponent(row * SIZE + col);
+    }
+
+    public void setToSquare(int row, int col) {
+        toPos = new Pos(row, col);
+    }
+
+    public void setFromSquare(int row, int col) {
+        fromPos = new Pos(row, col);
+    }
+
+    public void execute() {
+        if (toPos != null && fromPos != null) {
+            controller.move(fromPos, toPos);
+        }
+        clear();
+    }
+
+    private void clear() {
+        fromPos = null;
+        toPos = null;
     }
 }

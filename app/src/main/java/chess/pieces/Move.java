@@ -12,7 +12,7 @@ public class Move {
     }
 
     public boolean isOutOfBounds() {
-        return to.isOutOfBounds();
+        return to.isOutOfBounds() || from.isOutOfBounds();
     }
 
     public boolean equals(Move other) {
@@ -20,6 +20,6 @@ public class Move {
     }
 
     public String toString() {
-        return ", " + from.toString() + " to " + to.toString();
+        return from.toString() + " to " + to.toString();
     }
 }

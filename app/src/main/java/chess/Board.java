@@ -1,9 +1,10 @@
 package chess;
 
-
+import java.util.Observable;
 import chess.pieces.*;
 
-public class Board {
+@SuppressWarnings("deprecation")
+public class Board extends Observable {
     public static int SIZE = 8;
     public static char[] ROW_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     public static int[] COLUMN_NUMBERS = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -56,10 +57,15 @@ public class Board {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
+        System.out.println(!pieceToMove.isEmptySquare());
+        System.out.println(pieceToMove.isPossibleMove(potentialMove));
+
         if (!pieceToMove.isEmptySquare() && 
             pieceToMove.isPossibleMove(potentialMove)) {
             
             setPiece(pieceToMove, to);
+            setChanged();
+            notifyObservers("executed");
         }
     }
 
