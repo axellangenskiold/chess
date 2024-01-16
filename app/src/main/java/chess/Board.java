@@ -31,10 +31,12 @@ public class Board extends Observable {
         new Rook('b', new Pos(0,7))};
     
     Square[][] board;
+    public int turn;
 
     public Board() {
         this.board = new Square[SIZE][SIZE];
         setUp();
+        turn = 0;
     }
 
     public void setUp() {
@@ -58,16 +60,20 @@ public class Board extends Observable {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
-        if (!pieceToMove.isEmptySquare() && 
-            pieceToMove.isPossibleMove(potentialMove) &&
-            !get(to).getPiece().isSameColor(pieceToMove) &&
-            (pieceToMove.canJump() || isClearPath(from, to)) &&
-            specialCaptureCase(pieceToMove, potentialMove) &&
-            !kingInCheck(pieceToMove, potentialMove)) {
-            
-                setPiece(pieceToMove, to);
-                setChanged();
-                notifyObservers("executed");
+        if (isYourTurn(from)) {
+            if (!pieceToMove.isEmptySquare() && 
+                pieceToMove.isPossibleMove(potentialMove) &&
+                !get(to).getPiece().isSameColor(pieceToMove) &&
+                (pieceToMove.canJump() || isClearPath(from, to)) &&
+                specialCaptureCase(pieceToMove, potentialMove) &&
+                !kingInCheck(pieceToMove, potentialMove)) {
+                
+                    setPiece(pieceToMove, to);
+                    setChanged();
+                    notifyObservers("executed");
+                    printBoard();
+                    System.out.println(potentialMove.toString());
+            }
         }
     }
 
@@ -113,9 +119,8 @@ public class Board extends Observable {
                 return (move.isDiagonal() && piece.isOppositeColor(getPiece(move.getTo()))) || 
                         //if move is diagonal and piece is same color return false
 
-                    (!move.isDiagonal() && get(move.getTo()).getPiece().isEmptySquare()); 
+                        (!move.isDiagonal() && get(move.getTo()).getPiece().isEmptySquare()); 
                         //if move is not diagonal and piece is opposite color return false
-
         }
         return true;
     }
@@ -147,12 +152,21 @@ public class Board extends Observable {
     public boolean mockMove(Pos from, Pos to) {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
-        System.out.println("Stuck in loop");
+
         return (!pieceToMove.isEmptySquare() && 
             pieceToMove.isPossibleMove(potentialMove) &&
             !get(to).getPiece().isSameColor(pieceToMove) &&
             (pieceToMove.canJump() || isClearPath(from, to)) &&
             specialCaptureCase(pieceToMove, potentialMove));
+    }
+
+    public boolean isYourTurn(Pos from) {
+        return (get(from).getPiece().isBlack() && turn == 1) || (get(from).getPiece().isWhite() && turn == 0)
+    }
+
+
+    public void changeTurn() {
+        turn = 1-turn;  //if turn is 0 it turn to 1 and vice versa
     }
 
     //print that makes it look nice in the terminal
