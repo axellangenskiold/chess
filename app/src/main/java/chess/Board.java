@@ -161,7 +161,7 @@ public class Board extends Observable {
     }
 
     public boolean isYourTurn(Pos from) {
-        return (get(from).getPiece().isBlack() && turn == 1) || (get(from).getPiece().isWhite() && turn == 0)
+        return (get(from).getPiece().isBlack() && turn == 1) || (get(from).getPiece().isWhite() && turn == 0);
     }
 
 
