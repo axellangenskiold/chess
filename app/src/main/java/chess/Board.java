@@ -62,11 +62,12 @@ public class Board extends Observable {
             pieceToMove.isPossibleMove(potentialMove) &&
             !get(to).getPiece().isSameColor(pieceToMove) &&
             (pieceToMove.canJump() || isClearPath(from, to)) &&
-            specialCaptureCase(pieceToMove, potentialMove)) {
+            specialCaptureCase(pieceToMove, potentialMove) &&
+            !kingInCheck(pieceToMove, potentialMove)) {
             
-            setPiece(pieceToMove, to);
-            setChanged();
-            notifyObservers("executed");
+                setPiece(pieceToMove, to);
+                setChanged();
+                notifyObservers("executed");
         }
     }
 
@@ -106,17 +107,53 @@ public class Board extends Observable {
     private boolean specialCaptureCase(Piece piece, Move move) {
         //pawn can only capture diagonal and walk forward on empty square
         if (piece.type() == Piece.PAWN) {
-            return !(move.isDiagonal() && !piece.isOppositeColor(getPiece(move.getTo()))) || 
-                    (!move.isDiagonal() && piece.isOppositeColor(getPiece(move.getTo())));
-                    //(move.isDoubleOrMore() && ((Pawn) piece).isOnStartingRow());
+            if (move.isDoubleOrMore() && !((Pawn) piece).isOnStartingRow()) {
+                return false;
+            }
+                return (move.isDiagonal() && piece.isOppositeColor(getPiece(move.getTo()))) || 
+                        //if move is diagonal and piece is same color return false
+
+                    (!move.isDiagonal() && get(move.getTo()).getPiece().isEmptySquare()); 
+                        //if move is not diagonal and piece is opposite color return false
+
         }
-        return !kingInCheck(piece, move);
+        return true;
     }
 
     private boolean kingInCheck(Piece piece, Move move) {
-        return false;
+        //preliminary move
+        get(move.getFrom()).setToEmpty();
+        boolean res = false;
+        if (piece.isWhite()) {
+            for (Piece blackPiece : BLACK_START_POS) {
+                if (mockMove(blackPiece.getPos(), WHITE_START_POS[3].getPos())) {
+                    res = true;
+                    break;
+                }
+            }
+        } else if (piece.isBlack()) {
+            for (Piece whitePiece : WHITE_START_POS) {
+                if (mockMove(whitePiece.getPos(), BLACK_START_POS[3].getPos())) {
+                    res = true;
+                    break;
+                }
+            }
+        }
+
+        setPiece(piece, move.getFrom());
+        return res;
     }
 
+    public boolean mockMove(Pos from, Pos to) {
+        Piece pieceToMove = getPiece(from);
+        Move potentialMove = new Move(from, to);
+        System.out.println("Stuck in loop");
+        return (!pieceToMove.isEmptySquare() && 
+            pieceToMove.isPossibleMove(potentialMove) &&
+            !get(to).getPiece().isSameColor(pieceToMove) &&
+            (pieceToMove.canJump() || isClearPath(from, to)) &&
+            specialCaptureCase(pieceToMove, potentialMove));
+    }
 
     //print that makes it look nice in the terminal
     public void printBoard() {
