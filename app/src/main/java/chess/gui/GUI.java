@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import chess.Controller;
 
@@ -63,6 +64,8 @@ public class GUI extends JFrame implements Observer {
         System.out.println(".");
         if (arg.equals("executed")) {
             updateGUI();
+        } else if (arg.equals("checkMate")) {
+            JOptionPane.showConfirmDialog(this, "Check Mate");
         }
     }
 }
