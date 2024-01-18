@@ -66,13 +66,19 @@ public class Board extends Observable {
                 !get(to).getPiece().isSameColor(pieceToMove) &&
                 (pieceToMove.canJump() || isClearPath(from, to)) &&
                 specialCaptureCase(pieceToMove, potentialMove) &&
-                !kingInCheck(pieceToMove, potentialMove)) {
+                !isCheck(pieceToMove, potentialMove)) {
                 
                     setPiece(pieceToMove, to);
+                    changeTurn();
                     setChanged();
                     notifyObservers("executed");
+                    //
                     printBoard();
                     System.out.println(potentialMove.toString());
+                    if (isCheckMate()) {
+                        setChanged();
+                        notifyObservers("checkMate");
+                    }
             }
         }
     }
@@ -125,7 +131,7 @@ public class Board extends Observable {
         return true;
     }
 
-    private boolean kingInCheck(Piece piece, Move move) {
+    private boolean isCheck(Piece piece, Move move) {
         //preliminary move
         get(move.getFrom()).setToEmpty();
         boolean res = false;
@@ -149,6 +155,14 @@ public class Board extends Observable {
         return res;
     }
 
+    private boolean isCheckMate() {
+        boolean result = false;
+        for (Move move : getKing(turn).getPossibleMoves()) {
+            result = result & mockMove(move.getFrom(), move.getTo());
+        }
+        return result;
+    }
+
     public boolean mockMove(Pos from, Pos to) {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
@@ -162,6 +176,14 @@ public class Board extends Observable {
 
     public boolean isYourTurn(Pos from) {
         return (get(from).getPiece().isBlack() && turn == 1) || (get(from).getPiece().isWhite() && turn == 0);
+    }
+
+    private Piece getKing(int turn) {
+        if (turn == 0) {
+            return WHITE_START_POS[3];
+        } else {
+            return BLACK_START_POS[3];
+        }
     }
 
 

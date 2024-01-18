@@ -61,6 +61,7 @@ public abstract class Piece {
     }
 
     public List<Move> getPossibleMoves() {
+        possibleMoves.removeIf(move -> move.isOutOfBounds());
         return possibleMoves;
     }
 
