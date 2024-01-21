@@ -31,8 +31,9 @@ public class GUI extends JFrame implements Observer {
         setVisible(true);
     }
 
+    //this makes the pieces "load" on to the board
+    //pretty ugly code but makes it look nice in the gui
     public void readFromBoardStart() throws InterruptedException {
-        //makes it look cool in the beginning
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < SIZE; col++) {
                 getSquare(row, col).setPiece(controller.getPiece(row, col));;

@@ -60,22 +60,24 @@ public class Board extends Observable {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
-        if (isYourTurn(from)) {
-            if (!pieceToMove.isEmptySquare() && 
-                pieceToMove.isPossibleMove(potentialMove) &&
-                !get(to).getPiece().isSameColor(pieceToMove) &&
-                (pieceToMove.canJump() || isClearPath(from, to)) &&
-                specialCaptureCase(pieceToMove, potentialMove) &&
-                !isCheck(pieceToMove, potentialMove)) {
+        if (isPlayerTurn(from)) {
+            if (pieceToMove.isPossibleMove(potentialMove) && //true if the piece has that move in it's list
+
+                !get(to).getPiece().isSameColor(pieceToMove) && //true if the to-Pos isn't the same color as pieceToMove
+
+                (pieceToMove.canJump() || isClearPath(from, to)) && //true if the piece can jump over pieces (knight) or there is a clear path between from and to
+
+                specialCaptureCase(pieceToMove, potentialMove) && //true if there are any special captures (pawns)
+
+                !isCheck(pieceToMove, potentialMove)) //true if the move doesn't leave the king in check
+                { //
                 
                     setPiece(pieceToMove, to);
                     changeTurn();
                     setChanged();
                     notifyObservers("executed");
-                    //
                     printBoard();
-                    System.out.println(potentialMove.toString());
-                    if (isCheckMate()) {
+                    if (isCheckMate()) { //game has ended
                         setChanged();
                         notifyObservers("checkMate");
                     }
@@ -97,6 +99,7 @@ public class Board extends Observable {
         return board[pos.getRow()][pos.getCol()];
     }
 
+    // returns true if there is a clear path between Pos from and Pos to
     private boolean isClearPath(Pos from, Pos to) {
         int rowStep = Integer.compare(to.getRow(), from.getRow());
         int colStep = Integer.compare(to.getCol(), from.getCol());
@@ -116,6 +119,7 @@ public class Board extends Observable {
         return true;
     }
 
+    //special captures for pawn
     private boolean specialCaptureCase(Piece piece, Move move) {
         //pawn can only capture diagonal and walk forward on empty square
         if (piece.type() == Piece.PAWN) {
@@ -131,6 +135,7 @@ public class Board extends Observable {
         return true;
     }
 
+    //checks if a move results in the king being in check (therefore mate aswell)
     private boolean isCheck(Piece piece, Move move) {
         //preliminary move
         get(move.getFrom()).setToEmpty();
@@ -155,6 +160,7 @@ public class Board extends Observable {
         return res;
     }
 
+    //true if king is in check and can't move
     private boolean isCheckMate() {
         boolean result = false;
         for (Move move : getKing(turn).getPossibleMoves()) {
@@ -163,6 +169,8 @@ public class Board extends Observable {
         return result;
     }
 
+    //makes a "fake" move to and the returns a boolean with the 
+    // parameters that are needed for a move to be "good"
     public boolean mockMove(Pos from, Pos to) {
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
@@ -174,7 +182,7 @@ public class Board extends Observable {
             specialCaptureCase(pieceToMove, potentialMove));
     }
 
-    public boolean isYourTurn(Pos from) {
+    public boolean isPlayerTurn(Pos from) {
         return (get(from).getPiece().isBlack() && turn == 1) || (get(from).getPiece().isWhite() && turn == 0);
     }
 

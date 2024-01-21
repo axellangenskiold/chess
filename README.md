@@ -12,9 +12,10 @@
 - If a player wants to move a piece from square a to square b, the move(Pos from, Pos to) - method 
 - in board checks if that move is legal. If the move is out of bounds, takes it's own piece or puts the king
 - in check, the move is not allowed
-
-
-\n
+- 
+- 
+- 
+- 
 - Run the program with "gradle run" or with "gradlew run"
 
 
