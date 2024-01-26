@@ -15,7 +15,11 @@
 - 
 - 
 - 
+# specs
+- Run the program with "gradle run" or with "./gradlew"
 - 
-- Run the program with "gradle run" or with "gradlew run"
+- Source code can be found in "/chess/app/src/main/java/chess"
+- Images can be found in "/chess/app/src/main/resources
+
 
 

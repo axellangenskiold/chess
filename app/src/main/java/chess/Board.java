@@ -69,7 +69,7 @@ public class Board extends Observable {
 
                 specialCaptureCase(pieceToMove, potentialMove) && //true if there are any special captures (pawns)
 
-                !isCheck(pieceToMove, potentialMove)) //true if the move doesn't leave the king in check
+                !putsKingInCheck(pieceToMove, potentialMove)) //true if the move doesn't leave the king in check
                 { //
                 
                     setPiece(pieceToMove, to);
@@ -77,10 +77,6 @@ public class Board extends Observable {
                     setChanged();
                     notifyObservers("executed");
                     printBoard();
-                    if (isCheckMate()) { //game has ended
-                        setChanged();
-                        notifyObservers("checkMate");
-                    }
             }
         }
     }
@@ -136,9 +132,10 @@ public class Board extends Observable {
     }
 
     //checks if a move results in the king being in check (therefore mate aswell)
-    private boolean isCheck(Piece piece, Move move) {
+    private boolean putsKingInCheck(Piece piece, Move move) {
         //preliminary move
         get(move.getFrom()).setToEmpty();
+
         boolean res = false;
         if (piece.isWhite()) {
             for (Piece blackPiece : BLACK_START_POS) {
@@ -160,26 +157,18 @@ public class Board extends Observable {
         return res;
     }
 
-    //true if king is in check and can't move
-    private boolean isCheckMate() {
-        boolean result = false;
-        for (Move move : getKing(turn).getPossibleMoves()) {
-            result = result & mockMove(move.getFrom(), move.getTo());
-        }
-        return result;
-    }
-
-    //makes a "fake" move to and the returns a boolean with the 
-    // parameters that are needed for a move to be "good"
     public boolean mockMove(Pos from, Pos to) {
+
         Piece pieceToMove = getPiece(from);
         Move potentialMove = new Move(from, to);
 
-        return (!pieceToMove.isEmptySquare() && 
-            pieceToMove.isPossibleMove(potentialMove) &&
-            !get(to).getPiece().isSameColor(pieceToMove) &&
-            (pieceToMove.canJump() || isClearPath(from, to)) &&
-            specialCaptureCase(pieceToMove, potentialMove));
+        return pieceToMove.isPossibleMove(potentialMove) && //true if the piece has that move in it's list
+
+        !get(to).getPiece().isSameColor(pieceToMove) && //true if the to-Pos isn't the same color as pieceToMove
+
+        (pieceToMove.canJump() || isClearPath(from, to)) && //true if the piece can jump over pieces (knight) or there is a clear path between from and to
+
+        specialCaptureCase(pieceToMove, potentialMove); //true if there are any special captures (pawns)
     }
 
     public boolean isPlayerTurn(Pos from) {
